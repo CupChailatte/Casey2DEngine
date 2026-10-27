@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace PacmanV1;
+namespace _2DEngine;
 
 public class Game1 : Game
 {
