@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net9.0-windows</TargetFramework>
     <RollForward>Major</RollForward>
     <PublishReadyToRun>false</PublishReadyToRun>
@@ -17,6 +17,6 @@
   </ItemGroup>
   <!--ENGINE REFERENCE -->
   <ItemGroup>
-      <ProjectReference Include= "2DEngine\2DEngine\2DEngine.csproj" /> 
+      <ProjectReference Include= "..\..\..\Engine\Engine\Engine.csproj" /> 
   </ItemGroup>
 </Project>
