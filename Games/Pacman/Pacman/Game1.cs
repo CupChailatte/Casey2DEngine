@@ -10,7 +10,6 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private Entity entity; 
-
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);

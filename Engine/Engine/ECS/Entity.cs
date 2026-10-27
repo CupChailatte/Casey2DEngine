@@ -5,6 +5,6 @@ using System.ComponentModel;
 namespace Engine.ECS; 
 public class Entity
 {
-    Dictionary<, IComponent>
+    
     
 }

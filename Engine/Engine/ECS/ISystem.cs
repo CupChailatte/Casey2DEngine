@@ -7,7 +7,7 @@ namespace Engine.ECS;
 public interface ISystem
 {
     // använder för att one time init av objects 
-     void Initialize(); 
+     void Initialize();     
 }
 
 // System som tar hand om uppdatering av t.ex UI, AUDIO, Movement, Events, Collision 
