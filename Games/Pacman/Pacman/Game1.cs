@@ -9,7 +9,7 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private Entity entity; 
+    private Entity entity;
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -19,8 +19,8 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        entity = new Entity("BOOOOOBS "); 
-        entity.Initialize(); 
+        entity = new Entity("BOOOOOBS ");
+        entity.Initialize();
         base.Initialize();
     }
 
