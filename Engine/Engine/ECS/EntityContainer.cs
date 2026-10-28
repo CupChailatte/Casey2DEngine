@@ -12,16 +12,12 @@ public class EntityContainer
     // int = entityID, IComponent = komponenten 
     private readonly Dictionary<Type, Dictionary<int, IComponent>> _componentCollection = new();
 
-    public EntityContainer()
-    {
-
-    }
-
     //* Skapar bara entities med nummering t.ex entity 1 = 1, entity 2 = 2 
     public int CreateEntity()
     {
         int entityID = _nextEntityID++;
         _activeEntities.Add(entityID);
+        Console.WriteLine($"Entity, ID: {entityID} created");
         return entityID;
     }
 
