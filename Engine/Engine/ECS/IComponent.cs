@@ -1,6 +1,7 @@
-using Microsoft.Xna.Framework; 
+using Microsoft.Xna.Framework;
 
-namespace Engine.ECS; 
+namespace Engine.ECS;
+
 public interface IComponent
 {
     //! corrected my code: I should not have functions for IComponent, 
