@@ -22,16 +22,33 @@ public class EntityContainer
     }
 
     //* förstör entities : använder för att ta bort entites när de ska t.ex dö. 
+    //* Tar också bort componenterna från collection --> förebygga leaks.
     public void DestroyEntity(int entityID)
     {
-        if (!_activeEntities.Remove(entityID)) return;
+        if (!_activeEntities.Remove(entityID)) return; // om jag försöker att förstöra en entity som inte finns, return. 
+
+        List<Type> EmptyTypeToClear = new();
 
         // går igenom Dictionary värden
-        foreach (var componentTable in _componentCollection.Values)
+        foreach (var keyValuePair in _componentCollection)
         {
+            Type componentType = keyValuePair.Key;
+            var componentTable = keyValuePair.Value;
+
             componentTable.Remove(entityID);
+
+            if (componentTable.Count == 0)
+            {
+                EmptyTypeToClear.Add(componentType);
+            }
+        }
+
+        foreach (Type type in EmptyTypeToClear)
+        {
+            _componentCollection.Remove(type);
         }
     }
+
     //note 'T' är en platshållare för en generisk typ 
     //* Lägger till components till _componentCollection 
     public void AddComponent<T>(int entityID, T component) where T : IComponent
@@ -79,10 +96,16 @@ public class EntityContainer
     //* ta bort en specifik komponent från en entity. 
     public void RemoveComponent<T>(int entityID) where T : IComponent
     {
+        Type type = typeof(T);
         // hämtar componenten och sedan tar bort den från entityID som den tillhörde 
-        if (_componentCollection.TryGetValue(typeof(T), out var componentToRemove))
+        if (_componentCollection.TryGetValue(type, out var componentToRemove))
         {
             componentToRemove.Remove(entityID);
+
+            if (componentToRemove.Count == 0)
+            {
+                _componentCollection.Remove(type);
+            }
         }
     }
 

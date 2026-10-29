@@ -2,6 +2,8 @@ using Engine.ECS;
 using Engine.Component;
 using Microsoft.Xna.Framework.Graphics;
 
+namespace Engine.Systems;
+
 public class RenderSystem : IRenderSystem
 {
     private readonly EntityContainer _entityCollection;
