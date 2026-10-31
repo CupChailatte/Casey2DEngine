@@ -1,7 +1,7 @@
 using Engine.ECS;
 using Microsoft.Xna.Framework;
 
-namespace Engine.Component;
+namespace Engine.Components;
 
 public class TransformComponent : IComponent
 {

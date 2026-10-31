@@ -3,7 +3,7 @@ using Engine.ECS;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Engine.Component;
+namespace Engine.Components;
 // ska bara ha data för rendering av sprites 
 public class RenderComponent : IComponent
 {

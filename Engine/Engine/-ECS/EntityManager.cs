@@ -12,7 +12,7 @@ public class EntityManager
     // int = entityID, IComponent = komponenten 
     private readonly Dictionary<Type, Dictionary<int, IComponent>> _componentCollection = new();
 
-    //* Skapar bara entities med nummering t.ex entity 1 = 1, entity 2 = 2 
+    // Skapar bara entities med nummering t.ex entity 1 = 1, entity 2 = 2 
     public int CreateEntity()
     {
         int entityID = _nextEntityID++;
@@ -20,8 +20,8 @@ public class EntityManager
         return entityID;
     }
 
-    //* förstör entities : använder för att ta bort entites när de ska t.ex dö. 
-    //* Tar också bort componenterna från collection --> förebygga leaks.
+    // förstör entities : använder för att ta bort entites när de ska t.ex dö. 
+    // Tar också bort componenterna från collection --> förebygga leaks.
     public void DestroyEntity(int entityID)
     {
         if (!_activeEntities.Remove(entityID)) return; // om jag försöker att förstöra en entity som inte finns, return. 
@@ -33,7 +33,7 @@ public class EntityManager
     }
 
     //note 'T' är en platshållare för en generisk typ 
-    //* Lägger till components till _componentCollection 
+    // Lägger till components till _componentCollection 
     public void AddComponent<T>(int entityID, T component) where T : IComponent
     {
         // Kollar om entity finns 
@@ -52,7 +52,7 @@ public class EntityManager
         newComponent[entityID] = component;
     }
 
-    //* Hämtar component genom entityID. Om component inte finns return null 
+    // Hämtar component genom entityID. Om component inte finns return null 
     public T GetComponent<T>(int entityID) where T : class, IComponent
     {
         // hämtar komponenten från Dictionary och lagrar resultatet i storedComponent, sedan returnar värdet(component)
@@ -65,7 +65,7 @@ public class EntityManager
     }
 
 
-    //* används för att kolla om en entity har en viss komponent : returnar sant/falsk : O(1) lookup 
+    // används för att kolla om en entity har en viss komponent : returnar sant/falsk : O(1) lookup 
     public bool HasComponent<T>(int entityID) where T : IComponent
     {
         return _componentCollection.TryGetValue(typeof(T), out var storedComponent) &&
@@ -76,7 +76,7 @@ public class EntityManager
         // storedComponent.ContainsKey() kollar om komponenten finns
     }
 
-    //* ta bort en specifik komponent från en entity. 
+    // ta bort en specifik komponent från en entity. 
     public void RemoveComponent<T>(int entityID) where T : IComponent
     {
         // hämtar componenten och sedan tar bort den från entityID som den tillhörde 

@@ -6,8 +6,8 @@ namespace Engine.ECS;
 // interface för system klasser 
 public interface ISystem
 {
-     // använder för att one time init av objects 
-     void Initialize();
+     // används för klasser som ska ha laddaded grejer från redan början, annars är det Dependency Injection som används 
+     void Initialize() { }
 }
 // System som tar hand om uppdatering av t.ex UI, AUDIO, Movement, Events, Collision 
 public interface IUpdateSystem : ISystem
