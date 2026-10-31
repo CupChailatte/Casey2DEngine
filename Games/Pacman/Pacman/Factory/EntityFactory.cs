@@ -48,23 +48,12 @@ public class EntityFactory
     }
 
 
-    public int CreatePinky(Vector2 startPosition)
+    public int SpawnPinky(Vector2 startPosition)
     {
-        int pinky = _entityManager.CreateEntity();
+        int pinkyID = CreateBaseEntity("pinky", startPosition);
 
-        Vector2 scale = new(32, 32);
-        float rotation = 0f;
+        return pinkyID;
 
-        var transform = new TransformComponent(startPosition, rotation, scale);
-        var sprite = new RenderComponent(GameAssets.TextureAsset.pacman)
-        {
-            Color = Color.Pink
-        };
-
-        _entityManager.AddComponent(pinky, transform);
-        _entityManager.AddComponent(pinky, sprite);
-
-        return pinky;
     }
 
     public int SpawnPacman(Vector2 startPos)

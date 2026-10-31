@@ -1,0 +1,58 @@
+
+1 Beskrivning
+PacMan går ut på att man styr en figur genom en labyrint och figuren skall äta upp all utplacerad mat, samtidigt som det gäller att undvika ett antal spöken som rör på sig.
+Sker en kollision mellan PacMan och spöket, förlorar PacMan ett liv.
+En omgång är slut när all mat är uppäten eller PacMan
+har förlorat alla sina liv.
+2 Grundkrav
+
+Banan/banorna skall läsas in från en fil/filer som talar om var väggar, spöken mm är placerade och utforma någon form av labyrint.
+Pacman äter mat och man vinner om maten är uppäten.
+Pacman vänder sig åt det håll han går.
+Minst ett spöke.
+PacMan och spökena är animerade med hjälp av ”spriteanimation”, d.v.s. att det finns ett spritesheet med
+tex PacMan där han öppnar och stänger munnen.
+Pacman förlorar liv vid kollision med spökena och man förlorar om liven tar slut.
+Koden skall implementera arv på ett rimligt vis.
+Koden ska vara skriven på ett snyggt sätt och uppdelat i klasser och metoder samt använda Handler/Manager  för att strukturera koden.
+Lösningen ska vara "tile-baserad", dvs. tilebaserad förflyttning.
+Till skillnad från den klassiska versionen av PacMan så är det tillräckligt att PacMan endast rör sig ett tag i taget per knapptryckning. Dock så MÅSTE man ändra PacMans rörelsebeteende till att vara som i den klassiska versionen (att PacMan fortsätter röra sig åt samma håll tills man klickar på en annan tangent) för att uppnå högre betyg.
+
+3 Exempel på extra funktionalitet
+Nedan är en lista med exempel på extra funktionalitet:
+Poängbonus objekt (1p)
+Spelet går att starta om (1p)
+High-Score lista (1-2p)
+Gå ut på ena sidan och kommer in från den andra (2p)
+Power-ups (äta spöken, förstöra väggar m.m.) (1-3p)
+
+
+Spöken som har ”smartare” AI än helt random (väljer väg, målsökande), exempel finns nedan. Observera att poängen inte går att lägga ihop.
+AI väljer väg (går i en riktning tills spöket träffar en vägg och därefter tar en ny riktning
+tills den träffar nästa) (1p)
+två stycken aktiva AI (ex en som tar en random riktning efter varje steg och en annan
+som använder beteendet beskrivet ovan) (2p)
+AI som försöker ta sig till Pacman samt de två andra beteenden ovan (3p)
+Alla beteenden ovan samt att spöken reagerar och försöker fly från Pacman om hen har
+tagit en power-up som tillåter spöken att ätas (4p)
+Level-editor (2-4p)
+Meny (1p)
+Flera nivåer (1-2p)
+Grafisk HUD (1p)
+Xbox-kontroll (1p) (OBS! Under rådande omständigheter har vi ingen möjlighet att låna ut Xbox-kontroller)
+Klassisk Pacman-rörelse (obligatorisk för högre betyg)
+Egen funktionalitet (krävs för betyget VG)
+
+4 Kodstruktur
+Stor vikt kommer att läggas på hur koden är strukturerad. För att uppnå god struktur till ett betyg krävs att alla punkter för det betyget, samt föregående betygen, uppnås.
+• Namngivning -G
+• Läsbarhet - G
+• Ingen hårdkodning - G
+• Blockstorlek - G
+• Klassindelning - VG
+• Konsekvent - VG
+5 Betygskala
+• Grundkrav  + god G struktur → G
+• Grundkrav + 18 poäng + klassisk rörelse + god G och VG struktur + egen funktionalitet → VG
+
+

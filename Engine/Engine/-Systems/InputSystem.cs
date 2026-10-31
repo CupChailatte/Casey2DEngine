@@ -22,9 +22,7 @@ public class InputSystem : ISystem
         Vector2 direction = Vector2.Zero;
 
         if (keyboard.IsKeyDown(Keys.Up) || keyboard.IsKeyDown(Keys.W))
-        {
             direction = new Vector2(0, -1);
-        }
         else if (keyboard.IsKeyDown(Keys.Down) || keyboard.IsKeyDown(Keys.S))
             direction = new Vector2(0, 1);
         else if (keyboard.IsKeyDown(Keys.Left) || keyboard.IsKeyDown(Keys.A))

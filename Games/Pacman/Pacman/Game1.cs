@@ -65,6 +65,7 @@ public class Game1 : Game
 
         // int pacman = _entityFactory.CreatePacman(new Vector2(10, 10));
         int pacboy = _entityFactory.SpawnPacman(new Vector2(10, 10));
+        int pinkyboi = _entityFactory.SpawnPinky(new Vector2(500, 600));
 
 
     }
