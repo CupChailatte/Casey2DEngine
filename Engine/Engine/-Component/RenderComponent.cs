@@ -1,3 +1,4 @@
+using System;
 using Engine.ECS;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,7 +26,7 @@ public class RenderComponent : IComponent
     public RenderComponent(Texture2D texture, Rectangle? sourceRectangle)
     {    // "Rectangle(?)" gör den nullable. Eftersom Rectangle är en struct kan det normalt inte vara null
          // Om den är null, rita upp hela texturen. SourceRectangle är för att rita en specifik områden på en textur. 
-
+        ArgumentNullException.ThrowIfNull(texture);
         Texture = texture;
         SourceRectangle = sourceRectangle;
     }

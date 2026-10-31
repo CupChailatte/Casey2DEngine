@@ -6,19 +6,19 @@ namespace Engine.Systems;
 
 public class RenderSystem : IRenderSystem
 {
-    private readonly EntityContainer _entityCollection;
+    private readonly EntityManager _entityManager;
 
-    public RenderSystem(EntityContainer entities)
+    public RenderSystem(EntityManager entityManager)
     {
-        _entityCollection = entities;
+        _entityManager = entityManager;
     }
     public void Initialize() { }
     public void Draw(SpriteBatch spriteBatch)
     {
-        foreach (int entityID in _entityCollection.GetEntityWithComponent<RenderComponent>())
+        foreach (int entityID in _entityManager.GetEntityWithComponent<RenderComponent>())
         {
-            var renderComponent = _entityCollection.GetComponent<RenderComponent>(entityID);
-            var tranformComponent = _entityCollection.GetComponent<TransformComponent>(entityID);
+            var renderComponent = _entityManager.GetComponent<RenderComponent>(entityID);
+            var tranformComponent = _entityManager.GetComponent<TransformComponent>(entityID);
 
             // entity som har render och tranform kommer att ritas ut, annars inte.         
             if (renderComponent.Texture != null && tranformComponent != null)

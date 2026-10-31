@@ -1,6 +1,7 @@
 
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Pacman.GameAssets;
 
@@ -10,6 +11,8 @@ public static class TextureAsset
 
     public static void LoadTextureAssets(ContentManager content)
     {
-        pacman = content.Load<Texture2D>("pacman_sprite");
+        Console.WriteLine("GameAssets: Textures Loaded");
+
+        pacman = content.Load<Texture2D>("pacman_spriteSmoll2");
     }
 }

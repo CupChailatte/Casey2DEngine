@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Engine.ECS;
 
-public class EntityContainer
+public class EntityManager
 {
     private int _nextEntityID = 1;
     // HashSet som håller koll på levande entities : HashSet<T> Är en generisk samling av UNIKA VÄRDEN utan nyckel-värde par. O(1) lookup 
@@ -17,7 +17,6 @@ public class EntityContainer
     {
         int entityID = _nextEntityID++;
         _activeEntities.Add(entityID);
-        Console.WriteLine($"Entity, ID: {entityID} created");
         return entityID;
     }
 
