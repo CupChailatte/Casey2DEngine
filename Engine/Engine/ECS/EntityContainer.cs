@@ -26,26 +26,10 @@ public class EntityContainer
     public void DestroyEntity(int entityID)
     {
         if (!_activeEntities.Remove(entityID)) return; // om jag försöker att förstöra en entity som inte finns, return. 
-
-        List<Type> EmptyTypeToClear = new();
-
         // går igenom Dictionary värden
-        foreach (var keyValuePair in _componentCollection)
+        foreach (var hashTable in _componentCollection.Values)
         {
-            Type componentType = keyValuePair.Key;
-            var componentTable = keyValuePair.Value;
-
-            componentTable.Remove(entityID);
-
-            if (componentTable.Count == 0)
-            {
-                EmptyTypeToClear.Add(componentType);
-            }
-        }
-
-        foreach (Type type in EmptyTypeToClear)
-        {
-            _componentCollection.Remove(type);
+            hashTable.Remove(entityID);
         }
     }
 
@@ -96,16 +80,11 @@ public class EntityContainer
     //* ta bort en specifik komponent från en entity. 
     public void RemoveComponent<T>(int entityID) where T : IComponent
     {
-        Type type = typeof(T);
         // hämtar componenten och sedan tar bort den från entityID som den tillhörde 
+        Type type = typeof(T);
         if (_componentCollection.TryGetValue(type, out var componentToRemove))
         {
             componentToRemove.Remove(entityID);
-
-            if (componentToRemove.Count == 0)
-            {
-                _componentCollection.Remove(type);
-            }
         }
     }
 
