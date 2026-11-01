@@ -7,7 +7,7 @@ public class EntityManager
 {
     private int _nextEntityID = 1;
     // HashSet som håller koll på levande entities : HashSet<T> Är en generisk samling av UNIKA VÄRDEN utan nyckel-värde par. O(1) lookup 
-    private readonly HashSet<int> _activeEntities = new();
+    private readonly HashSet<int> _activeEntities = [];
     // Dictionary/ min collection av componenter med key-value pair. Dictionary<T> är en generisk samling av key-value pair baserad på Hashtabell, där varje unik nyckel pekar på ett speficik tillhörande värde.O(1) lookup
     // int = entityID, IComponent = komponenten 
     private readonly Dictionary<Type, Dictionary<int, IComponent>> _componentCollection = new();
