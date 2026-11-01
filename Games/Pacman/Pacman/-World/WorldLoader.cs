@@ -59,9 +59,10 @@ public class WorldLoader
                     case 'P':
                         tileArray[row, column] = WorldTile.Floor(PixelPosition);
                         int pacman = _entityfactory.SpawnPacman(PixelPosition);
-                        var position = _entityManager.GetComponent<TransformComponent>(pacman);
-                        Console.WriteLine(GetGridPosition(position.Position));
-                        Console.WriteLine(position.Position);
+                        break;
+                    case 'T':
+                        tileArray[row, column] = WorldTile.Floor(PixelPosition);
+                        int pacman2 = _entityfactory.SpawnTestPacman(PixelPosition);
                         break;
                     case '#':
                         tileArray[row, column] = WorldTile.Wall(PixelPosition);

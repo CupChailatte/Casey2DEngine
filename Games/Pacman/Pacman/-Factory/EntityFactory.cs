@@ -33,6 +33,20 @@ public class EntityFactory
         return entityID;
     }
 
+    public int SpawnTestPacman(Vector2 startPos)
+    {
+        var data = _blueprintRegistry.Get("pacman2");
+        int entityId = CreateBaseEntity("pacman2", startPos);
+
+        var playerTag = new PlayerTag();
+        _entityManager.AddComponent(entityId, playerTag);
+        Console.WriteLine($"Spawned Pacman, ID: {entityId}");
+
+        var entityColor = _entityManager.GetComponent<RenderComponent>(entityId);
+        entityColor.Color = BlueprintRegistry.ParseColor(data.Color);
+        return entityId;
+    }
+
 
     public int SpawnPinky(Vector2 startPosition)
     {

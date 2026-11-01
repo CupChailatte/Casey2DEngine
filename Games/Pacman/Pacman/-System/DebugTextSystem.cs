@@ -30,6 +30,7 @@ public class DebugTextSystem : ISystem
 
         var transformComponent = _entityManager.GetComponent<TransformComponent>(playerID);
 
+
         string text = $"Current Entity: {playerID} \n" +
                       $"PixelPosition : {transformComponent.Position}\n";
 
