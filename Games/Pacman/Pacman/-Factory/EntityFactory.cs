@@ -24,27 +24,13 @@ public class EntityFactory
 
     }
 
-
-    public int CreatePacman(Vector2 startPosition)
+    public int SpawnPacman(Vector2 startPos)
     {
-        int pacman = _entityManager.CreateEntity(); // createEntity returnar 1 (id för pacman)
-        Console.WriteLine($"Pacman Entity Created, ID: {pacman}");
-        Vector2 scale = Vector2.One;
-        float rotation = 0f;
-
-        var transform = new TransformComponent(startPosition, rotation, scale);
-        var sprite = new RenderComponent(GameAssets.TextureAsset.pacman)
-        {
-            Color = Color.Yellow
-        };
-
-        var movement = new MovementComponent(speed: 200);
-        _entityManager.AddComponent(pacman, new PlayerTag());
-        _entityManager.AddComponent(pacman, transform);
-        _entityManager.AddComponent(pacman, sprite);
-        _entityManager.AddComponent(pacman, movement);
-
-        return pacman;
+        int entityID = CreateBaseEntity("pacman", startPos);
+        var playerTag = new PlayerTag();
+        _entityManager.AddComponent(entityID, playerTag);
+        Console.WriteLine($"Spawned Pacman, ID: {entityID}");
+        return entityID;
     }
 
 
@@ -56,14 +42,6 @@ public class EntityFactory
 
     }
 
-    public int SpawnPacman(Vector2 startPos)
-    {
-        int entityID = CreateBaseEntity("pacman", startPos);
-        var playerTag = new PlayerTag();
-        _entityManager.AddComponent(entityID, playerTag);
-
-        return entityID;
-    }
 
     public int CreateBaseEntity(string blueprintKey, Vector2 startPos)
     {

@@ -8,6 +8,8 @@ using Pacman.Factory;
 using System;
 using Pacman.Data;
 using Pacman.World;
+using Pacman.Systems;
+
 
 namespace Pacman;
 
@@ -23,11 +25,18 @@ public class Game1 : Game
     private InputSystem _inputSystem;
     private MovementSystem _movementSystem;
 
+
     private WorldLoader _worldLoader;
 
     private BlueprintRegistry _blueprintRegistry;
 
     private Texture2D _pixelTexture;
+
+    // TODO TEST AREA 
+
+    private DebugTextSystem _debug;
+
+    // -------------------------
 
     public Game1()
     {
@@ -53,7 +62,9 @@ public class Game1 : Game
         _movementSystem = new MovementSystem(_entityManager);
         _renderSystem = new RenderSystem(_entityManager);
 
-        _worldLoader = new WorldLoader(_entityFactory);
+        _worldLoader = new WorldLoader(_entityFactory, _entityManager);
+
+        _debug = new DebugTextSystem(_entityManager, new Vector2(20, 20));
         _renderSystem.Initialize();
 
         base.Initialize();
@@ -63,15 +74,15 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         GameAssets.TextureAsset.LoadTextureAssets(Content);
+
         _blueprintRegistry.Load("Content/Data/entities.json");
 
         _pixelTexture = new Texture2D(GraphicsDevice, 1, 1);
         _pixelTexture.SetData(new[] { Color.White });
 
-        // int pacman = _entityFactory.CreatePacman(new Vector2(10, 10));
-        int pacboy = _entityFactory.SpawnPacman(new Vector2(10, 10));
-        int pinkyboi = _entityFactory.SpawnPinky(new Vector2(500, 600));
         _worldLoader.LoadWorld("Content/Data/maze1.csv");
+
+
 
 
     }
@@ -100,7 +111,7 @@ public class Game1 : Game
     );
         _worldLoader.Draw(_spriteBatch);
         _renderSystem.Draw(_spriteBatch);
-
+        _debug.Draw(_spriteBatch);
         _spriteBatch.End();
         base.Draw(gameTime);
     }

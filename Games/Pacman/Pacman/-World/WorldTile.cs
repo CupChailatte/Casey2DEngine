@@ -26,7 +26,8 @@ public class WorldTile : IRenderSystem
         spriteBatch.Draw(TileTexture, TilePosition, Color.White);
     }
 
-    public static WorldTile Wall(Vector2 pos) => new WorldTile(GameAssets.TextureAsset.pacman, pos);
+    public static WorldTile Floor(Vector2 pos) => new WorldTile(GameAssets.TextureAsset.floorTile, pos);
+    public static WorldTile Wall(Vector2 pos) => new WorldTile(GameAssets.TextureAsset.wallTile, pos);
 
 
 

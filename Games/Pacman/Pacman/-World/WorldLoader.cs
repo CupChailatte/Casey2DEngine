@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using Engine.Components;
+using Engine.ECS;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Pacman.Factory;
@@ -12,11 +14,13 @@ namespace Pacman.World;
 public class WorldLoader
 {
     private WorldTile[,] tileArray;
-    private EntityFactory factory;
+    private EntityFactory _entityfactory;
+    private EntityManager _entityManager;
 
-    public WorldLoader(EntityFactory entityFactory)
+    public WorldLoader(EntityFactory entityFactory, EntityManager entityManager)
     {
-        factory = entityFactory;
+        _entityfactory = entityFactory;
+        _entityManager = entityManager;
     }
 
 
@@ -28,7 +32,7 @@ public class WorldLoader
         {
             string line = reader.ReadLine();
             result.Add(line);
-            Console.WriteLine(line);
+            // Console.WriteLine(line);
         }
         reader.Close();
         return result;
@@ -49,36 +53,34 @@ public class WorldLoader
                 char tileChar = lines[row][column]; // speficik charactär från fil 
                 Vector2 PixelPosition = new Vector2(row * 32, column * 32);
 
+
                 switch (tileChar)
                 {
+                    case 'P':
+                        tileArray[row, column] = WorldTile.Floor(PixelPosition);
+                        int pacman = _entityfactory.SpawnPacman(PixelPosition);
+                        var position = _entityManager.GetComponent<TransformComponent>(pacman);
+                        Console.WriteLine(GetGridPosition(position.Position));
+                        Console.WriteLine(position.Position);
+                        break;
                     case '#':
                         tileArray[row, column] = WorldTile.Wall(PixelPosition);
                         break;
-                    case 'P':
-
-                        break;
-                    case 'B':
-
-                        break;
-                    case 'C':
-
-                        break;
-                    case 'O':
-
-                        break;
-                    case 'M':
-
-                        break;
-                    case 'E':
-
-                        break;
                     case '.':
                     default:
-                        tileArray[row, column] = WorldTile.Wall(PixelPosition);
+                        tileArray[row, column] = WorldTile.Floor(PixelPosition);
                         break;
                 }
             }
         }
+    }
+
+    // helper metod som omvandlar pixelPosition till gridposition 
+    public Point GetGridPosition(Vector2 pixelPosition)
+    {
+        int targetX = (int)pixelPosition.X / WorldTile.TileSize;
+        int targetY = (int)pixelPosition.Y / WorldTile.TileSize;
+        return new Point(targetX, targetY);
     }
 
 
