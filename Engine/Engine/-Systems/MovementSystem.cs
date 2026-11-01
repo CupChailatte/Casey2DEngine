@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 namespace Engine.Systems;
 
 
-public class MovementSystem : ISystem
+public class MovementSystem : IUpdateSystem
 {
     private readonly EntityManager _entityManager;
 
@@ -32,8 +32,6 @@ public class MovementSystem : ISystem
                 movement.Direction = movement.NextDirection;
             }
             transform.Position += movement.Direction * movement.Speed * deltaTime;
-
-
 
         }
     }

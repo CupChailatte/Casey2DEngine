@@ -7,6 +7,7 @@ using Engine.Systems;
 using Pacman.Factory;
 using System;
 using Pacman.Data;
+using Pacman.World;
 
 namespace Pacman;
 
@@ -21,6 +22,8 @@ public class Game1 : Game
     private RenderSystem _renderSystem;
     private InputSystem _inputSystem;
     private MovementSystem _movementSystem;
+
+    private WorldLoader _worldLoader;
 
     private BlueprintRegistry _blueprintRegistry;
 
@@ -49,6 +52,8 @@ public class Game1 : Game
         _inputSystem = new InputSystem(_entityManager);
         _movementSystem = new MovementSystem(_entityManager);
         _renderSystem = new RenderSystem(_entityManager);
+
+        _worldLoader = new WorldLoader(_entityFactory);
         _renderSystem.Initialize();
 
         base.Initialize();
@@ -66,6 +71,7 @@ public class Game1 : Game
         // int pacman = _entityFactory.CreatePacman(new Vector2(10, 10));
         int pacboy = _entityFactory.SpawnPacman(new Vector2(10, 10));
         int pinkyboi = _entityFactory.SpawnPinky(new Vector2(500, 600));
+        _worldLoader.LoadWorld("Content/Data/maze1.csv");
 
 
     }
@@ -92,7 +98,9 @@ public class Game1 : Game
         depthStencilState: DepthStencilState.None,
         rasterizerState: RasterizerState.CullCounterClockwise
     );
+        _worldLoader.Draw(_spriteBatch);
         _renderSystem.Draw(_spriteBatch);
+
         _spriteBatch.End();
         base.Draw(gameTime);
     }

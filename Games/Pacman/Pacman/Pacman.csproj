@@ -15,6 +15,15 @@
     <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.*" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.*" />
   </ItemGroup>
+
+  <!-- ABLE COPY WORLD FILE TO BIN/DEBUGs-->
+  <ItemGroup>
+  <None Update="Content\Data\menu.txt">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
+
+
   <!--ENGINE REFERENCE -->
   <ItemGroup>
       <ProjectReference Include= "..\..\..\Engine\Engine\Engine.csproj" /> 
