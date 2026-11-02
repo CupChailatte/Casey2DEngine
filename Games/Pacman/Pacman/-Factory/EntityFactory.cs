@@ -36,22 +36,23 @@ public class EntityFactory
 
     public int SpawnTestPacman(Vector2 startPos)
     {
-         int entityID = _entityManager.CreateEntity(); 
+        int entityID = _entityManager.CreateEntity();
 
-         var playerTag = new PlayerTag(); 
-         var tranform = new TransformComponent(startPos);
-         var render = new RenderComponent(GameAssets.TextureAsset.pacman)
-         {
-             Color = Color.Red 
-         }; 
-         _entityManager.AddComponent(entityID, playerTag);  
-         _entityManager.AddComponent(entityID, render); 
-         _entityManager.AddComponent(entityID, tranform);  
-         Console.WriteLine($"Test Pacman spawned"); 
+        var playerTag = new PlayerTag();
+        var tranform = new TransformComponent(startPos);
+        // var movement = new GridMovementComponent(startPos, 100f, 32);
+        var render = new RenderComponent(GameAssets.TextureAsset.pacman)
+        {
+            Color = Color.Red
+        };
+        _entityManager.AddComponent(entityID, playerTag);
+        _entityManager.AddComponent(entityID, render);
+        _entityManager.AddComponent(entityID, tranform);
+        Console.WriteLine($"Test Pacman spawned");
 
 
-         return entityID; 
-    
+        return entityID;
+
     }
 
 
