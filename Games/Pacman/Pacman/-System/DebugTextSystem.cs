@@ -18,26 +18,23 @@ public class DebugTextSystem : ISystem
     {
         _entityManager = entityManager;
         _textPos = textPos;
-
-
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
         _font = GameAssets.TextureAsset.DebugText;
+        // hämtar entity med player tag
         var playerEntitiesID = _entityManager.GetEntityWithComponent<PlayerTag>();
+        // hämtar id:n
         var playerID = playerEntitiesID.FirstOrDefault();
 
         var transformComponent = _entityManager.GetComponent<TransformComponent>(playerID);
-
-
         string text = $"Current Entity: {playerID} \n" +
                       $"PixelPosition : {transformComponent.Position}\n";
 
         if (_font != null)
         {
             spriteBatch.DrawString(_font, text, _textPos, Color.Yellow);
-
         }
     }
 

@@ -16,13 +16,11 @@ public class WorldLoader
     private WorldTile[,] tileArray;
     private EntityFactory _entityfactory;
     private EntityManager _entityManager;
-
     public WorldLoader(EntityFactory entityFactory, EntityManager entityManager)
     {
         _entityfactory = entityFactory;
         _entityManager = entityManager;
     }
-
 
     public List<string> ReadMap(string filePath)
     {
@@ -51,18 +49,14 @@ public class WorldLoader
             for (int column = 0; column < worldWidth; column++)
             {
                 char tileChar = lines[row][column]; // speficik charactär från fil 
-                Vector2 PixelPosition = new Vector2(row * 32, column * 32);
+                Vector2 PixelPosition = new Vector2(column * 32, row * 32);
 
 
                 switch (tileChar)
                 {
                     case 'P':
                         tileArray[row, column] = WorldTile.Floor(PixelPosition);
-                        int pacman = _entityfactory.SpawnPacman(PixelPosition);
-                        break;
-                    case 'T':
-                        tileArray[row, column] = WorldTile.Floor(PixelPosition);
-                        int pacman2 = _entityfactory.SpawnTestPacman(PixelPosition);
+                        int pacman = _entityfactory.SpawnTestPacman(PixelPosition);
                         break;
                     case '#':
                         tileArray[row, column] = WorldTile.Wall(PixelPosition);

@@ -19,8 +19,6 @@ public static class TextureAsset
         pacman = content.Load<Texture2D>("pacman_spriteSmoll2");
         floorTile = content.Load<Texture2D>("floortile");
         wallTile = content.Load<Texture2D>("walltile");
-
-
         DebugText = content.Load<SpriteFont>("DebugFont");
     }
 }

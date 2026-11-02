@@ -3,6 +3,7 @@ using Engine.Components;
 using Engine.ECS;
 using Microsoft.Xna.Framework;
 using Pacman.Data;
+using Pacman.Systems;
 
 namespace Pacman.Factory;
 
@@ -35,16 +36,22 @@ public class EntityFactory
 
     public int SpawnTestPacman(Vector2 startPos)
     {
-        var data = _blueprintRegistry.Get("pacman2");
-        int entityId = CreateBaseEntity("pacman2", startPos);
+         int entityID = _entityManager.CreateEntity(); 
 
-        var playerTag = new PlayerTag();
-        _entityManager.AddComponent(entityId, playerTag);
-        Console.WriteLine($"Spawned Pacman, ID: {entityId}");
+         var playerTag = new PlayerTag(); 
+         var tranform = new TransformComponent(startPos);
+         var render = new RenderComponent(GameAssets.TextureAsset.pacman)
+         {
+             Color = Color.Red 
+         }; 
+         _entityManager.AddComponent(entityID, playerTag);  
+         _entityManager.AddComponent(entityID, render); 
+         _entityManager.AddComponent(entityID, tranform);  
+         Console.WriteLine($"Test Pacman spawned"); 
 
-        var entityColor = _entityManager.GetComponent<RenderComponent>(entityId);
-        entityColor.Color = BlueprintRegistry.ParseColor(data.Color);
-        return entityId;
+
+         return entityID; 
+    
     }
 
 

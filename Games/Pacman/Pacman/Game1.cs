@@ -35,6 +35,7 @@ public class Game1 : Game
     // TODO TEST AREA 
 
     private DebugTextSystem _debug;
+    private PacmanInputSystem _pacmanInputSystem; 
 
     // -------------------------
 
@@ -59,6 +60,7 @@ public class Game1 : Game
 
         // --- SYSTEMS --- 
         _inputSystem = new InputSystem(_entityManager);
+        _pacmanInputSystem = new PacmanInputSystem(_entityManager); 
         _movementSystem = new MovementSystem(_entityManager);
         _renderSystem = new RenderSystem(_entityManager);
 
@@ -92,6 +94,7 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
         _inputSystem.Update();
+        _pacmanInputSystem.Update(gameTime); 
         _movementSystem.Update(gameTime);
 
         base.Update(gameTime);
