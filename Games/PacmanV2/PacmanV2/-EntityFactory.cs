@@ -5,18 +5,21 @@ using PacmanV2.Components;
 using PacmanV2.Entity;
 using PacmanV2.Data;
 using PacmanV2.GameAssets;
+using PacmanV2.World;
 
 
 public class EntityFactory
 {
     private EntityManager _entityManager;
     private EntityRegistry _registry;
+    private WorldLoader _worldLoader;
 
 
-    public EntityFactory(EntityManager entityManager, EntityRegistry _entityRegistry)
+    public EntityFactory(EntityManager entityManager, EntityRegistry _entityRegistry, WorldLoader worldLoader)
     {
         _entityManager = entityManager;
         _registry = _entityRegistry;
+        _worldLoader = worldLoader;
     }
 
     public int SpawnPacman(Point startPos)
@@ -41,19 +44,17 @@ public class EntityFactory
         var data = _registry.Get(archetype);
         int entityID = _entityManager.CreateEntity();
 
-        var tranform = new TransformComponent(startPos)
-        {
-            Scale = new Vector2(data.Scale.X, data.Scale.Y)
-        };
+        var movement = new GridMovementComponent(WorldLoader.PixelToGrid(startPos), 20);
+        var tranform = new TransformComponent(startPos) { Scale = new Vector2(data.Scale.X, data.Scale.Y) };
         _entityManager.AddComponent(entityID, tranform);
+        _entityManager.AddComponent(entityID, movement);
 
         switch (archetype)
         {
             case "pacman":
-                var sprite = new RenderComponent(TextureAssets.pacman)
-                {
-                    Color = EntityRegistry.ParseColor(data.Color)
-                };
+                var playerTag = new PlayerTag();
+                var sprite = new RenderComponent(TextureAssets.pacman) { Color = EntityRegistry.ParseColor(data.Color) };
+                _entityManager.AddComponent(entityID, playerTag);
                 _entityManager.AddComponent(entityID, sprite);
                 break;
         }

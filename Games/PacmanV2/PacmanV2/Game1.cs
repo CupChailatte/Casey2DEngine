@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PacmanV2.Data;
 using PacmanV2.Entity;
+using PacmanV2.Systems;
 using PacmanV2.World;
 
 namespace PacmanV2;
@@ -17,7 +18,9 @@ public class Game1 : Game
     private EntityFactory _entityFactory;
 
     private RenderSystem _renderSystem;
+    private GridMovementSystem _movementSystem;
     private WorldLoader _worldLoader;
+    private InputSystem _inputSystem;
 
     public Game1()
     {
@@ -33,8 +36,10 @@ public class Game1 : Game
     {
         _entityManager = new EntityManager();
         _entityRegistry = new EntityRegistry();
-        _entityFactory = new EntityFactory(_entityManager, _entityRegistry);
+
+        _movementSystem = new GridMovementSystem(_entityManager);
         _renderSystem = new RenderSystem(_entityManager);
+        _inputSystem = new InputSystem(_entityManager);
 
         base.Initialize();
     }
@@ -43,10 +48,11 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         GameAssets.TextureAssets.LoadTextures(Content);
-        _entityRegistry.LoadBlueprint("-Data/Entities.json");
-
-
+        _entityFactory = new EntityFactory(_entityManager, _entityRegistry, _worldLoader);
         _worldLoader = new WorldLoader(_entityManager, _entityFactory);
+
+
+        _entityRegistry.LoadBlueprint("-Data/Entities.json");
         _worldLoader.LoadWorld("Content/maze1.csv");
 
     }
@@ -55,6 +61,8 @@ public class Game1 : Game
     {
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
+        _inputSystem.Update(gameTime);
+        _movementSystem.Update(gameTime);
 
 
         base.Update(gameTime);

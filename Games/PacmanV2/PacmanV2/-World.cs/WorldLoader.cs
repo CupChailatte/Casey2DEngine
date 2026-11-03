@@ -9,7 +9,7 @@ namespace PacmanV2.World;
 
 public class WorldLoader
 {
-    private WorldTile[,] tileArray;
+    public static WorldTile[,] tileArray;
     private EntityManager _entityManager;
     private EntityFactory _entityFactory;
     public WorldLoader(EntityManager entityManager, EntityFactory entityFactory)
@@ -67,6 +67,34 @@ public class WorldLoader
                 }
             }
         }
+    }
+
+    // helper metod som omvandlar Vector2 till Point koordinat 
+    public static Point PixelToGrid(Vector2 pixelPosition)
+    {
+        return new Point(
+            (int)pixelPosition.X / WorldTile.TileSize,
+            (int)pixelPosition.Y / WorldTile.TileSize);
+    }
+
+    public static Vector2 GridToPixel(Point gridPosition)
+    {
+        return new Vector2(
+        gridPosition.X * WorldTile.TileSize,
+        gridPosition.Y * WorldTile.TileSize);
+
+    }
+
+    // tile checker 
+    public static bool IsTileWalkable(int gridX, int gridY)
+    {
+        if (gridX < 0 || gridX >= tileArray.GetLength(1) ||
+            gridY < 0 || gridY >= tileArray.GetLength(0))
+        {
+            return false;
+        }
+        // returns true 
+        return tileArray[gridY, gridX].IsWalkable;
     }
 
     public void Draw(SpriteBatch spriteBatch)

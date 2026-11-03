@@ -16,6 +16,5 @@ public static class TextureAssets
         pacman = content.Load<Texture2D>("pacman_spriteSmoll2");
         wall = content.Load<Texture2D>("walltile");
         floor = content.Load<Texture2D>("floortile");
-
     }
 }
