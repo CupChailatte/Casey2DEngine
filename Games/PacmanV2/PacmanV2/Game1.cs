@@ -13,8 +13,10 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
 
     private EntityManager _entityManager;
-    private EntiyRegistry _entityRegistry;
+    private EntityRegistry _entityRegistry;
     private EntityFactory _entityFactory;
+
+    private RenderSystem _renderSystem;
     private WorldLoader _worldLoader;
 
     public Game1()
@@ -30,8 +32,9 @@ public class Game1 : Game
     protected override void Initialize()
     {
         _entityManager = new EntityManager();
-        _entityRegistry = new EntiyRegistry();
+        _entityRegistry = new EntityRegistry();
         _entityFactory = new EntityFactory(_entityManager, _entityRegistry);
+        _renderSystem = new RenderSystem(_entityManager);
 
         base.Initialize();
     }
@@ -46,7 +49,6 @@ public class Game1 : Game
         _worldLoader = new WorldLoader(_entityManager, _entityFactory);
         _worldLoader.LoadWorld("Content/maze1.csv");
 
-        int pacman = _entityFactory.SpawnPacman(new Point(2, 2)); // no render system yet!; 
     }
 
     protected override void Update(GameTime gameTime)
@@ -63,6 +65,7 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
         _spriteBatch.Begin();
         _worldLoader.Draw(_spriteBatch);
+        _renderSystem.Draw(_spriteBatch);
         _spriteBatch.End();
 
         base.Draw(gameTime);

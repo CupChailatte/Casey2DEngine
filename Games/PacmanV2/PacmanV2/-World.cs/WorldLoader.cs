@@ -18,6 +18,7 @@ public class WorldLoader
         _entityFactory = entityFactory;
     }
 
+    // TODO flytta till egen klass senare   
     public List<string> ReadMapFile(string filePath)
     {
         StreamReader reader = new StreamReader(filePath);
@@ -48,11 +49,16 @@ public class WorldLoader
                 char tileChar = lines[y][x]; // position av char 
 
                 Vector2 PixelPosition = new Vector2(x * WorldTile.TileSize, y * WorldTile.TileSize);
+                Point GridPosition = new Point((int)PixelPosition.X / WorldTile.TileSize, (int)PixelPosition.Y / WorldTile.TileSize);
 
                 switch (tileChar)
                 {
                     case '#':
                         tileArray[y, x] = WorldTile.Wall(PixelPosition);
+                        break;
+                    case 'P':
+                        tileArray[y, x] = WorldTile.Floor(PixelPosition);
+                        int pacman = _entityFactory.CreateEntity("pacman", PixelPosition);
                         break;
                     case '.':
                     default:

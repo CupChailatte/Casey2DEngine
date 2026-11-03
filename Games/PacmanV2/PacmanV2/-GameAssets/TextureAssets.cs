@@ -13,7 +13,7 @@ public static class TextureAssets
     public static void LoadTextures(ContentManager content)
     {
         Console.WriteLine("Textures Loaded");
-        pacman = content.Load<Texture2D>("ball");
+        pacman = content.Load<Texture2D>("pacman_spriteSmoll2");
         wall = content.Load<Texture2D>("walltile");
         floor = content.Load<Texture2D>("floortile");
 

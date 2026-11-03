@@ -6,7 +6,7 @@ using System;
 
 namespace PacmanV2.Data;
 
-public class EntiyRegistry
+public class EntityRegistry
 {
 
     private readonly Dictionary<string, EntityBlueprintDTO> _entityBlueprint = [];
@@ -41,7 +41,7 @@ public class EntiyRegistry
         if (hexColor.StartsWith('#')) hexColor = hexColor.Substring(1);
 
         byte r = Convert.ToByte(hexColor.Substring(0, 2), 16);
-        byte g = Convert.ToByte(hexColor.Substring(2, 4), 16);
+        byte g = Convert.ToByte(hexColor.Substring(2, 2), 16);
         byte b = Convert.ToByte(hexColor.Substring(4, 2), 16);
 
         return new Color(r, g, b);
