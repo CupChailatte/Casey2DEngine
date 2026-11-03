@@ -3,15 +3,12 @@ using Microsoft.Xna.Framework;
 using PacmanV2.Components;
 using PacmanV2.Entity;
 using PacmanV2.World;
-using SharpDX.Direct2D1.Effects;
 
 namespace PacmanV2.Systems;
-
 
 public class GridMovementSystem : IUpdateSystem
 {
     private EntityManager _entityManager;
-
     public GridMovementSystem(EntityManager entityManager)
     {
         _entityManager = entityManager;
@@ -20,60 +17,53 @@ public class GridMovementSystem : IUpdateSystem
     public void Update(GameTime gameTime)
     {
         float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-        // går igenom entities som har gridmovecomp 
-        foreach (var entityID in _entityManager.GetEntityWithComponent<GridMovementComponent>())
+        foreach (var entity in _entityManager.GetEntityWithComponent<GridMovementComponent>())
         {
-            // hämtar comp som tillhör entity IDn. 
-            var transform = _entityManager.GetComponent<TransformComponent>(entityID);
-            var movement = _entityManager.GetComponent<GridMovementComponent>(entityID);
+            var transform = _entityManager.GetComponent<TransformComponent>(entity);
+            var movement = _entityManager.GetComponent<GridMovementComponent>(entity);
 
-            //applicerar logik för GRID MOVEMENT : 
             if (transform == null || movement == null) continue;
 
-            if (!movement.IsMoving)
+            if (!movement.IsMoving && movement.Direction != Vector2.Zero)
             {
-                if (movement.NextDirection != Point.Zero)
+                if (movement.Direction != Vector2.Zero)
                 {
-                    // psudo kod: nästa position = nuposition + 1 riktning  
-                    // calculerar vart nästa tile är 
-                    Point TargetGridPos = movement.CurrentGridPosition + movement.NextDirection;
-
-                    if (WorldLoader.IsTileWalkable(TargetGridPos.X, TargetGridPos.Y))
+                    // hämtar entity currentPos 
+                    Point currentGridPos = WorldLoader.PixelToGrid(transform.PixelPosition);
+                    // räknar ut nästa pos 
+                    Point targetGridPos = new Point(
+                    currentGridPos.X + (int)movement.Direction.X,
+                    currentGridPos.Y + (int)movement.Direction.Y);
+                    // kollar om nästa pos är gång bar 
+                    if (WorldLoader.IsTileWalkable(targetGridPos.X, targetGridPos.Y))
                     {
-                        movement.NextGridPosition = TargetGridPos;
-                        movement.CurrentDirection = movement.NextDirection;
+                        movement.PixelDestination = transform.PixelPosition + (movement.Direction * WorldTile.TileSize);
                         movement.IsMoving = true;
                     }
                 }
             }
 
-            if (!movement.IsMoving) continue;
-
-            // applicerar logik för PIXEL POSITION´
-
-            // pixel destinationen 
-            Vector2 TargetPixelPosition = new Vector2(
-                movement.NextGridPosition.X * WorldTile.TileSize,
-                movement.NextGridPosition.Y * WorldTile.TileSize);
-
-            float stepDistance = movement.Speed * deltaTime;
-            // calculerar distansen mellan punkA och punkB
-            float distanceToTarget = Vector2.Distance(transform.PixelPosition, TargetPixelPosition);
-
-            if (distanceToTarget <= stepDistance)
+            if (movement.IsMoving)
             {
-                transform.PixelPosition = TargetPixelPosition;
+                Vector2 directionToTarget = movement.PixelDestination - transform.PixelPosition;
+                float distanceToTarget = directionToTarget.Length();
 
-                movement.CurrentGridPosition = movement.NextGridPosition;
-                movement.IsMoving = false;
+                float moveAmount = movement.Speed * deltaTime;
+
+                if (moveAmount > distanceToTarget)
+                {
+                    transform.PixelPosition = movement.PixelDestination;
+                    movement.IsMoving = false;
+                }
+                else
+                {
+                    directionToTarget.Normalize();
+                    transform.PixelPosition += directionToTarget * moveAmount;
+                }
             }
-            else
-            {
-                Vector2 slideVector = new Vector2(movement.CurrentDirection.X, movement.CurrentDirection.Y);
-                transform.PixelPosition += slideVector * stepDistance;
-            }
+
 
         }
+
     }
 }

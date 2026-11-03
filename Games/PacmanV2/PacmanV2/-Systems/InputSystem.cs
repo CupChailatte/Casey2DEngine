@@ -23,43 +23,43 @@ public class InputSystem : IUpdateSystem
     public void Update(GameTime gameTime)
     {
         _currentKBS = Keyboard.GetState();
-        Point GridDirection = Point.Zero;
+        Vector2 GridDirection = Vector2.Zero;
         if (_currentKBS.IsKeyDown(Keys.Up))
         {
-            GridDirection.Y--;
+            GridDirection = new Vector2(0, -1);
             _entityDirection = EntityDirection.Up;
         }
         else if (_currentKBS.IsKeyDown(Keys.Down))
         {
-            GridDirection.Y++;
+            GridDirection = new Vector2(0, 1);
             _entityDirection = EntityDirection.Down;
         }
         else if (_currentKBS.IsKeyDown(Keys.Right))
         {
-            GridDirection.Y++;
+            GridDirection = new Vector2(1, 0);
             _entityDirection = EntityDirection.Right;
         }
         else if (_currentKBS.IsKeyDown(Keys.Left))
         {
-            GridDirection.Y++;
+            GridDirection = new Vector2(-1, 0);
             _entityDirection = EntityDirection.Left;
         }
 
-        if (GridDirection != Point.Zero)
+        if (GridDirection != Vector2.Zero)
         {
             _latestFacingDirection = _entityDirection;
-            Console.WriteLine(_latestFacingDirection);
-        }
-
-        foreach (var entityID in _entityManager.GetEntityWithComponent<PlayerTag>())
-        {
-            var movement = _entityManager.GetComponent<GridMovementComponent>(entityID);
-            if (movement != null)
+            foreach (var entityID in _entityManager.GetEntityWithComponent<PlayerTag>())
             {
-                movement.NextDirection += GridDirection;
+                var movement = _entityManager.GetComponent<GridMovementComponent>(entityID);
+                if (movement != null)
+                {
+                    movement.Direction = GridDirection;
 
+                }
             }
         }
+
+
 
     }
 

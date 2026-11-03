@@ -88,8 +88,8 @@ public class WorldLoader
     // tile checker 
     public static bool IsTileWalkable(int gridX, int gridY)
     {
-        if (gridX < 0 || gridX >= tileArray.GetLength(1) ||
-            gridY < 0 || gridY >= tileArray.GetLength(0))
+        if (gridY < 0 || gridY >= tileArray.GetLength(0) ||
+            gridX < 0 || gridX >= tileArray.GetLength(1))
         {
             return false;
         }

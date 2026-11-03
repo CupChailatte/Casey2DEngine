@@ -25,13 +25,11 @@ public class EntityFactory
     public int SpawnPacman(Point startPos)
     {
         int entityID = _entityManager.CreateEntity();
-        var movement = new GridMovementComponent(startPos, 100f);
         var sprite = new RenderComponent(TextureAssets.pacman);
         var transform = new TransformComponent()
         {
 
         };
-        _entityManager.AddComponent(entityID, movement);
         _entityManager.AddComponent(entityID, sprite);
         _entityManager.AddComponent(entityID, transform);
         Console.WriteLine(entityID);
@@ -44,8 +42,9 @@ public class EntityFactory
         var data = _registry.Get(archetype);
         int entityID = _entityManager.CreateEntity();
 
-        var movement = new GridMovementComponent(WorldLoader.PixelToGrid(startPos), 20);
         var tranform = new TransformComponent(startPos) { Scale = new Vector2(data.Scale.X, data.Scale.Y) };
+        var movement = new GridMovementComponent(data.Speed);
+
         _entityManager.AddComponent(entityID, tranform);
         _entityManager.AddComponent(entityID, movement);
 

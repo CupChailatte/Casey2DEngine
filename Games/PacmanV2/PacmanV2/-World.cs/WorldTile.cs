@@ -27,8 +27,8 @@ public class WorldTile
         spriteBatch.Draw(TileTexture, TilePosition, Color.White);
     }
 
-    public static WorldTile Floor(Vector2 tilePos) => new WorldTile(GameAssets.TextureAssets.floor, tilePos);
-    public static WorldTile Wall(Vector2 tilePos) => new WorldTile(GameAssets.TextureAssets.wall, tilePos);
+    public static WorldTile Floor(Vector2 tilePos) => new WorldTile(GameAssets.TextureAssets.floor, tilePos, true);
+    public static WorldTile Wall(Vector2 tilePos) => new WorldTile(GameAssets.TextureAssets.wall, tilePos, false);
     public static WorldTile Pellets(Vector2 tilePos) => new WorldTile(GameAssets.TextureAssets.wall, tilePos, true, true);
 
 }
