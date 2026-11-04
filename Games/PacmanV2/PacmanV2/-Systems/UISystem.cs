@@ -19,5 +19,4 @@ public class UISystem : IRenderSystem
         string text = "SCORE: " + _scoreSystem.TotalScore;
         spriteBatch.DrawString(TextureAssets.UIFont, text, _textPos, Color.Yellow);
     }
-
 }

@@ -24,6 +24,7 @@ public class Game1 : Game
     private CollisionSystem _collisionSystem;
     private ScoreSystem _scoreSystem;
     private UISystem _UISystem;
+    private GameStateSystem _gameStateSystem;
     public const int TopUIPadding = 80;
 
     public Game1()
@@ -44,9 +45,9 @@ public class Game1 : Game
         _movementSystem = new GridMovementSystem(_entityManager);
         _renderSystem = new RenderSystem(_entityManager);
         _inputSystem = new InputSystem(_entityManager);
-        _collisionSystem = new CollisionSystem(_entityManager);
         _scoreSystem = new ScoreSystem();
         _UISystem = new UISystem(_scoreSystem);
+
 
         base.Initialize();
     }
@@ -56,7 +57,10 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         GameAssets.TextureAssets.LoadTextures(Content);
         _entityFactory = new EntityFactory(_entityManager, _entityRegistry, _worldLoader);
+
         _worldLoader = new WorldLoader(_entityManager, _entityFactory);
+        _collisionSystem = new CollisionSystem(_entityManager, _worldLoader);
+        _gameStateSystem = new GameStateSystem(_entityManager, _worldLoader);
 
 
         _entityRegistry.LoadBlueprint("-Data/Entities.json");
@@ -72,6 +76,7 @@ public class Game1 : Game
         _movementSystem.Update(gameTime);
         _collisionSystem.Update(gameTime);
         _scoreSystem.Update(gameTime);
+        _gameStateSystem.StateChanger();
 
         base.Update(gameTime);
     }

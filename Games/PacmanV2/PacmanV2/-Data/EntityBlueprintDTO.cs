@@ -20,6 +20,7 @@ public class Vector2DTO
 public class EntityBlueprintDTO
 {
     public float Speed { get; set; }
+    public int maxHP { get; set; }
     public Vector2DTO Scale { get; set; }
     public string Color { get; set; } = "#FFFFFF";
     public string GhostType { get; set; }

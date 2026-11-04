@@ -15,6 +15,8 @@ public class WorldLoader
     public static TileType[,] tileType;
     private EntityManager _entityManager;
     private EntityFactory _entityFactory;
+    public static int PelletsAmount { get; set; }
+    public int RemainingPellet = 0;
     public WorldLoader(EntityManager entityManager, EntityFactory entityFactory)
     {
         _entityManager = entityManager;
@@ -30,7 +32,6 @@ public class WorldLoader
         {
             string line = reader.ReadLine();
             readerResult.Add(line);
-            Console.WriteLine(line);
         }
         return readerResult;
     }
@@ -38,6 +39,7 @@ public class WorldLoader
     public void LoadWorld(string filePath)
     {
         List<string> lines = ReadMapFile(filePath);
+        PelletsAmount = 0;
 
         int worldWidth = lines[0].Length; // X
         int worldHeight = lines.Count; // Y
@@ -63,6 +65,7 @@ public class WorldLoader
                     case '.':
                         tileArray[y, x] = Floor;
                         tileType[y, x] = TileType.Pellet;
+                        PelletsAmount++;
                         break;
                     case 'p':
                         tileArray[y, x] = Floor;
@@ -92,6 +95,8 @@ public class WorldLoader
                 }
             }
         }
+        Console.WriteLine(PelletsAmount);
+        RemainingPellet += PelletsAmount;
     }
 
     // helper metod som omvandlar Vector2 till Point koordinat 
@@ -109,6 +114,16 @@ public class WorldLoader
         gridPosition.Y * WorldTile.TileSize);
 
     }
+    public int GetPelletAmount()
+    {
+        return PelletsAmount;
+    }
+
+    public void DecreasePelletAmount()
+    {
+        PelletsAmount--;
+    }
+
 
     // tile checker 
     public static bool IsTileWalkable(int gridX, int gridY)

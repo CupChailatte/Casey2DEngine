@@ -20,10 +20,9 @@ public class ScoreSystem : IUpdateSystem
 
     }
     // event som lägger till poäng vid uppätning 
-    public void HandlePelletEatenEvent(object sender, PelletsEatenEventArgs e)
+    public void HandlePelletEatenEvent(object sender, OnPelletsEatenEventArgs e)
     {
         TotalScore += e.ScoreValue;
-        Console.WriteLine(TotalScore);
     }
 
     //! GLÖM INTE DETTA I GAMESTATE - när man ändrar till t,ex menu, ska detta köras eller om spelet startas om

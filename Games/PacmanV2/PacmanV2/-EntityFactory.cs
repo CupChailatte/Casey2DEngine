@@ -29,9 +29,13 @@ public class EntityFactory
 
         var tranform = new TransformComponent(startPos) { Scale = new Vector2(data.Scale.X, data.Scale.Y) };
         var movement = new GridMovementComponent(data.Speed);
-
+        var hp = new HPComponent(maxHp: data.maxHP);
+        var hitbox = new CollisionComponent(32, 32);
+        _entityManager.AddComponent(entityID, hitbox);
         _entityManager.AddComponent(entityID, tranform);
         _entityManager.AddComponent(entityID, movement);
+        _entityManager.AddComponent(entityID, hp);
+
 
         switch (archetype)
         {
@@ -42,8 +46,10 @@ public class EntityFactory
                     Color = EntityRegistry.ParseColor(data.Color),
                     LayerDepth = 0.9f
                 };
+
                 _entityManager.AddComponent(entityID, playerTag);
                 _entityManager.AddComponent(entityID, sprite);
+
                 break;
             case "pinky":
                 var pinkySprite = new RenderComponent(TextureAssets.placeholder)
@@ -59,7 +65,8 @@ public class EntityFactory
                 {
                     Color = EntityRegistry.ParseColor(data.Color),
                     LayerDepth = 0.7f
-                };
+                }; var hitboxA = new CollisionComponent(32, 32);
+                _entityManager.AddComponent(entityID, hitboxA);
                 _entityManager.AddComponent(entityID, blinkySprite);
                 break;
             case "clyde":
