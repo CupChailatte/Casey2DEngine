@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PacmanV2.Components;
 using PacmanV2.Entity;
 using PacmanV2.Systems;
+using PacmanV2.World;
 
 public class RenderSystem : IRenderSystem
 {
@@ -23,18 +24,26 @@ public class RenderSystem : IRenderSystem
             var render = _entityManager.GetComponent<RenderComponent>(entityID);
             var transform = _entityManager.GetComponent<TransformComponent>(entityID);
 
+
+            Vector2 renderPosition = new Vector2(
+                transform.PixelPosition.X + (WorldTile.TileSize / 2f),
+                transform.PixelPosition.Y + (WorldTile.TileSize / 2f));
+
+            // Håller pacmans sprite origin fäst vid dens interna pixel center 
+            Vector2 renderOrigin = new Vector2(render.SpriteTexture.Width / 2f, render.SpriteTexture.Height / 2f);
+
             // null check av componenterna
             if (render == null || transform == null) continue;
 
             // rita? 
             spriteBatch.Draw(
                 texture: render.SpriteTexture,
-                position: transform.PixelPosition,
+                position: renderPosition, // visuel center position 
                 color: render.Color,
                 sourceRectangle: render.SourceRectangle,
                 effects: render.Effects,
                 rotation: transform.Rotation,
-                origin: render.Origin,
+                origin: renderOrigin, // visuel center rotation/pivot 
                 scale: transform.Scale,
                 layerDepth: render.LayerDepth);
         }

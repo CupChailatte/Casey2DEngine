@@ -44,7 +44,8 @@ public class EntityFactory
 
         var tranform = new TransformComponent(startPos) { Scale = new Vector2(data.Scale.X, data.Scale.Y) };
         var movement = new GridMovementComponent(data.Speed);
-
+        var lol = new PlayerTag();
+        _entityManager.AddComponent(entityID, lol);
         _entityManager.AddComponent(entityID, tranform);
         _entityManager.AddComponent(entityID, movement);
 
@@ -52,9 +53,37 @@ public class EntityFactory
         {
             case "pacman":
                 var playerTag = new PlayerTag();
-                var sprite = new RenderComponent(TextureAssets.pacman) { Color = EntityRegistry.ParseColor(data.Color) };
+                var sprite = new RenderComponent(TextureAssets.placeholder2) { Color = EntityRegistry.ParseColor(data.Color) };
                 _entityManager.AddComponent(entityID, playerTag);
                 _entityManager.AddComponent(entityID, sprite);
+                break;
+            case "pinky":
+                var pinkySprite = new RenderComponent(TextureAssets.placeholder)
+                {
+                    Color = EntityRegistry.ParseColor(data.Color)
+                };
+                _entityManager.AddComponent(entityID, pinkySprite);
+                break;
+            case "blinky":
+                var blinkySprite = new RenderComponent(TextureAssets.placeholder)
+                {
+                    Color = EntityRegistry.ParseColor(data.Color)
+                };
+                _entityManager.AddComponent(entityID, blinkySprite);
+                break;
+            case "clyde":
+                var clydeSprite = new RenderComponent(TextureAssets.placeholder)
+                {
+                    Color = EntityRegistry.ParseColor(data.Color)
+                };
+                _entityManager.AddComponent(entityID, clydeSprite);
+                break;
+            case "inky":
+                var inkySprite = new RenderComponent(TextureAssets.placeholder)
+                {
+                    Color = EntityRegistry.ParseColor(data.Color)
+                };
+                _entityManager.AddComponent(entityID, inkySprite);
                 break;
         }
 

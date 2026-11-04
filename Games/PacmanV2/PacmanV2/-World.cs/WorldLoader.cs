@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PacmanV2.Entity;
@@ -59,6 +60,22 @@ public class WorldLoader
                     case 'P':
                         tileArray[y, x] = WorldTile.Floor(PixelPosition);
                         int pacman = _entityFactory.CreateEntity("pacman", PixelPosition);
+                        break;
+                    case 'p':
+                        tileArray[y, x] = WorldTile.Floor(PixelPosition);
+                        int pinky = _entityFactory.CreateEntity("pinky", PixelPosition);
+                        break;
+                    case 'b':
+                        tileArray[y, x] = WorldTile.Floor(PixelPosition);
+                        int blinky = _entityFactory.CreateEntity("blinky", PixelPosition);
+                        break;
+                    case 'c':
+                        tileArray[y, x] = WorldTile.Floor(PixelPosition);
+                        int clyde = _entityFactory.CreateEntity("clyde", PixelPosition);
+                        break;
+                    case 'i':
+                        tileArray[y, x] = WorldTile.Floor(PixelPosition);
+                        int inky = _entityFactory.CreateEntity("inky", PixelPosition);
                         break;
                     case '.':
                     default:

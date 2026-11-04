@@ -9,6 +9,9 @@ public static class TextureAssets
     public static Texture2D pacman { get; set; }
     public static Texture2D wall { get; set; }
     public static Texture2D floor { get; set; }
+    public static Texture2D placeholder { get; set; }
+    public static Texture2D placeholder2 { get; set; }
+
 
     public static void LoadTextures(ContentManager content)
     {
@@ -16,5 +19,7 @@ public static class TextureAssets
         pacman = content.Load<Texture2D>("pacman_spriteSmoll2");
         wall = content.Load<Texture2D>("walltile");
         floor = content.Load<Texture2D>("floortile");
+        placeholder = content.Load<Texture2D>("spritePlaceholder");
+        placeholder2 = content.Load<Texture2D>("placeholder2");
     }
 }
