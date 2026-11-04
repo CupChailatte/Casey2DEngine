@@ -22,31 +22,6 @@ public class EntityFactory
         _worldLoader = worldLoader;
     }
 
-    public int CreatePellet(string archetype, Vector2 startPos)
-    {
-        var data = _registry.Get(archetype);
-        int pelletID = _entityManager.CreateEntity();
-
-        var transform = new TransformComponent(startPos);
-        _entityManager.AddComponent(pelletID, transform);
-
-        switch (archetype)
-        {
-            case "pellet":
-                var pelletSprite = new RenderComponent(TextureAssets.placeholder)
-                {
-                    Color = EntityRegistry.ParseColor(data.Color),
-                    LayerDepth = 0.3f
-                };
-                _entityManager.AddComponent(pelletID, pelletSprite);
-                break;
-        }
-
-
-        return pelletID;
-
-    }
-
     public int CreateEntity(string archetype, Vector2 startPos)
     {
         var data = _registry.Get(archetype);
@@ -54,7 +29,6 @@ public class EntityFactory
 
         var tranform = new TransformComponent(startPos) { Scale = new Vector2(data.Scale.X, data.Scale.Y) };
         var movement = new GridMovementComponent(data.Speed);
-
 
         _entityManager.AddComponent(entityID, tranform);
         _entityManager.AddComponent(entityID, movement);

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using PacmanV2.Components;
 using PacmanV2.Entity;
+using PacmanV2.Enums;
 using Microsoft.Xna.Framework.Graphics;
 using PacmanV2.World;
 

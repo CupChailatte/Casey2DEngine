@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using PacmanV2.World;
+using PacmanV2.Enums;
 
 namespace PacmanV2.Components;
 

@@ -8,6 +8,7 @@ using PacmanV2.World;
 public class RenderSystem : IRenderSystem
 {
     private EntityManager _entityManager;
+    private bool IsEntity;
 
     public RenderSystem(EntityManager entityManager)
     {
@@ -24,6 +25,11 @@ public class RenderSystem : IRenderSystem
             var render = _entityManager.GetComponent<RenderComponent>(entityID);
             var transform = _entityManager.GetComponent<TransformComponent>(entityID);
 
+            if (render == null || transform == null) continue;
+
+            IsEntity =
+            _entityManager.HasComponent<RenderComponent>(entityID) ||
+            _entityManager.HasComponent<TransformComponent>(entityID);
 
             Vector2 renderPosition = new Vector2(
                 transform.PixelPosition.X + (WorldTile.TileSize / 2f),

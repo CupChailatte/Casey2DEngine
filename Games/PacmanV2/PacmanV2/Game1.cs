@@ -21,6 +21,8 @@ public class Game1 : Game
     private GridMovementSystem _movementSystem;
     private WorldLoader _worldLoader;
     private InputSystem _inputSystem;
+    private CollisionSystem _collisionSystem;
+    private ScoreSystem _scoreSystem;
 
     public Game1()
     {
@@ -40,6 +42,8 @@ public class Game1 : Game
         _movementSystem = new GridMovementSystem(_entityManager);
         _renderSystem = new RenderSystem(_entityManager);
         _inputSystem = new InputSystem(_entityManager);
+        _collisionSystem = new CollisionSystem(_entityManager);
+        _scoreSystem = new ScoreSystem();
 
         base.Initialize();
     }
@@ -63,7 +67,8 @@ public class Game1 : Game
             Exit();
         _inputSystem.Update(gameTime);
         _movementSystem.Update(gameTime);
-
+        _collisionSystem.Update(gameTime);
+        _scoreSystem.Update(gameTime);
 
         base.Update(gameTime);
     }
