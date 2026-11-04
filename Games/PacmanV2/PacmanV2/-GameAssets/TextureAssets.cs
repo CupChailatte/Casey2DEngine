@@ -12,6 +12,8 @@ public static class TextureAssets
     public static Texture2D placeholder { get; set; }
     public static Texture2D placeholder2 { get; set; }
 
+    public static SpriteFont UIFont { get; set; }
+
 
     public static void LoadTextures(ContentManager content)
     {
@@ -21,5 +23,7 @@ public static class TextureAssets
         floor = content.Load<Texture2D>("floortile");
         placeholder = content.Load<Texture2D>("spritePlaceholder");
         placeholder2 = content.Load<Texture2D>("placeholder2");
+
+        UIFont = content.Load<SpriteFont>("UIFont");
     }
 }

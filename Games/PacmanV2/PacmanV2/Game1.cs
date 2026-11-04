@@ -23,11 +23,13 @@ public class Game1 : Game
     private InputSystem _inputSystem;
     private CollisionSystem _collisionSystem;
     private ScoreSystem _scoreSystem;
+    private UISystem _UISystem;
+    public const int TopUIPadding = 80;
 
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
-        _graphics.PreferredBackBufferHeight = 1000;
+        _graphics.PreferredBackBufferHeight = 1000 + TopUIPadding;
         _graphics.PreferredBackBufferWidth = 900;
         _graphics.ApplyChanges();
         Content.RootDirectory = "Content";
@@ -44,6 +46,7 @@ public class Game1 : Game
         _inputSystem = new InputSystem(_entityManager);
         _collisionSystem = new CollisionSystem(_entityManager);
         _scoreSystem = new ScoreSystem();
+        _UISystem = new UISystem(_scoreSystem);
 
         base.Initialize();
     }
@@ -75,10 +78,11 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.Black);
         _spriteBatch.Begin();
         _worldLoader.Draw(_spriteBatch);
         _renderSystem.Draw(_spriteBatch);
+        _UISystem.Draw(_spriteBatch);
         _spriteBatch.End();
 
         base.Draw(gameTime);

@@ -19,6 +19,7 @@ public class ScoreSystem : IUpdateSystem
     {
 
     }
+    // event som lägger till poäng vid uppätning 
     public void HandlePelletEatenEvent(object sender, PelletsEatenEventArgs e)
     {
         TotalScore += e.ScoreValue;

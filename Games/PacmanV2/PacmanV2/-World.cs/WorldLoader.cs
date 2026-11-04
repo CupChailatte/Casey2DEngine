@@ -56,7 +56,6 @@ public class WorldLoader
                 WorldTile Floor = WorldTile.Floor(PixelPosition);
                 switch (tileChar)
                 {
-
                     case '#':
                         tileArray[y, x] = WorldTile.Wall(PixelPosition);
                         tileType[y, x] = TileType.Wall;
@@ -127,7 +126,9 @@ public class WorldLoader
     {
         foreach (var tile in tileArray)
         {
+
             tile.Draw(spriteBatch);
+
         }
 
         for (int y = 0; y < tileType.GetLength(0); y++)
@@ -145,7 +146,9 @@ public class WorldLoader
                     float offSetY = (WorldTile.TileSize - GameAssets.TextureAssets.placeholder.Height) / 2f;
 
                     //* Nya centrerad pos 
-                    Vector2 centeredPos = new Vector2(pixelPos.X + offSetX, pixelPos.Y + offSetY);
+                    Vector2 centeredPos = new Vector2(
+                        pixelPos.X + offSetX,
+                        pixelPos.Y + offSetY);
 
                     spriteBatch.Draw(GameAssets.TextureAssets.placeholder, centeredPos, Color.Wheat);
                 }
