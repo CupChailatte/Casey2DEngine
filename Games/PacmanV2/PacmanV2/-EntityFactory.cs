@@ -22,19 +22,29 @@ public class EntityFactory
         _worldLoader = worldLoader;
     }
 
-    public int SpawnPacman(Point startPos)
+    public int CreatePellet(string archetype, Vector2 startPos)
     {
-        int entityID = _entityManager.CreateEntity();
-        var sprite = new RenderComponent(TextureAssets.pacman);
-        var transform = new TransformComponent()
+        var data = _registry.Get(archetype);
+        int pelletID = _entityManager.CreateEntity();
+
+        var transform = new TransformComponent(startPos);
+        _entityManager.AddComponent(pelletID, transform);
+
+        switch (archetype)
         {
+            case "pellet":
+                var pelletSprite = new RenderComponent(TextureAssets.placeholder)
+                {
+                    Color = EntityRegistry.ParseColor(data.Color),
+                    LayerDepth = 0.3f
+                };
+                _entityManager.AddComponent(pelletID, pelletSprite);
+                break;
+        }
 
-        };
-        _entityManager.AddComponent(entityID, sprite);
-        _entityManager.AddComponent(entityID, transform);
-        Console.WriteLine(entityID);
 
-        return entityID;
+        return pelletID;
+
     }
 
     public int CreateEntity(string archetype, Vector2 startPos)
@@ -44,8 +54,8 @@ public class EntityFactory
 
         var tranform = new TransformComponent(startPos) { Scale = new Vector2(data.Scale.X, data.Scale.Y) };
         var movement = new GridMovementComponent(data.Speed);
-        var lol = new PlayerTag();
-        _entityManager.AddComponent(entityID, lol);
+
+
         _entityManager.AddComponent(entityID, tranform);
         _entityManager.AddComponent(entityID, movement);
 
@@ -53,46 +63,49 @@ public class EntityFactory
         {
             case "pacman":
                 var playerTag = new PlayerTag();
-                var sprite = new RenderComponent(TextureAssets.placeholder2) { Color = EntityRegistry.ParseColor(data.Color) };
+                var sprite = new RenderComponent(TextureAssets.placeholder2)
+                {
+                    Color = EntityRegistry.ParseColor(data.Color),
+                    LayerDepth = 0.9f
+                };
                 _entityManager.AddComponent(entityID, playerTag);
                 _entityManager.AddComponent(entityID, sprite);
                 break;
             case "pinky":
                 var pinkySprite = new RenderComponent(TextureAssets.placeholder)
                 {
-                    Color = EntityRegistry.ParseColor(data.Color)
+                    Color = EntityRegistry.ParseColor(data.Color),
+                    LayerDepth = 0.7f
+
                 };
                 _entityManager.AddComponent(entityID, pinkySprite);
                 break;
             case "blinky":
                 var blinkySprite = new RenderComponent(TextureAssets.placeholder)
                 {
-                    Color = EntityRegistry.ParseColor(data.Color)
+                    Color = EntityRegistry.ParseColor(data.Color),
+                    LayerDepth = 0.7f
                 };
                 _entityManager.AddComponent(entityID, blinkySprite);
                 break;
             case "clyde":
                 var clydeSprite = new RenderComponent(TextureAssets.placeholder)
                 {
-                    Color = EntityRegistry.ParseColor(data.Color)
+                    Color = EntityRegistry.ParseColor(data.Color),
+                    LayerDepth = 0.7f
                 };
                 _entityManager.AddComponent(entityID, clydeSprite);
                 break;
             case "inky":
                 var inkySprite = new RenderComponent(TextureAssets.placeholder)
                 {
-                    Color = EntityRegistry.ParseColor(data.Color)
+                    Color = EntityRegistry.ParseColor(data.Color),
+                    LayerDepth = 0.7f
                 };
                 _entityManager.AddComponent(entityID, inkySprite);
                 break;
         }
-
-
-
-
         return entityID;
-
-
     }
 
 }

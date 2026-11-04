@@ -54,12 +54,12 @@ public class WorldLoader
 
                 switch (tileChar)
                 {
+                    case '.':
+                        tileArray[y, x] = WorldTile.Floor(PixelPosition);
+                        int pellet = _entityFactory.CreatePellet("pellet", PixelPosition);
+                        break;
                     case '#':
                         tileArray[y, x] = WorldTile.Wall(PixelPosition);
-                        break;
-                    case 'P':
-                        tileArray[y, x] = WorldTile.Floor(PixelPosition);
-                        int pacman = _entityFactory.CreateEntity("pacman", PixelPosition);
                         break;
                     case 'p':
                         tileArray[y, x] = WorldTile.Floor(PixelPosition);
@@ -77,7 +77,11 @@ public class WorldLoader
                         tileArray[y, x] = WorldTile.Floor(PixelPosition);
                         int inky = _entityFactory.CreateEntity("inky", PixelPosition);
                         break;
-                    case '.':
+                    case 'P':
+                        tileArray[y, x] = WorldTile.Floor(PixelPosition);
+                        int pacman = _entityFactory.CreateEntity("pacman", PixelPosition);
+                        break;
+                    case ' ':
                     default:
                         tileArray[y, x] = WorldTile.Floor(PixelPosition);
                         break;
