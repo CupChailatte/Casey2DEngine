@@ -15,7 +15,7 @@ public class WorldLoader
     public static TileType[,] tileType;
     private EntityManager _entityManager;
     private EntityFactory _entityFactory;
-    public static int PelletsAmount { get; set; }
+    public static int PelletsAmount { get; set; } // mängden pellets 
     public int RemainingPellet = 0;
     public WorldLoader(EntityManager entityManager, EntityFactory entityFactory)
     {
