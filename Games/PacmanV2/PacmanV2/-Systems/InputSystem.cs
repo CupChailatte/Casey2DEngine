@@ -15,9 +15,9 @@ public class InputSystem : IUpdateSystem
 {
     private EntityManager _entityManager;
     private KeyboardState _currentKBS, _previousKBS;
-    private EntityDirection _entityDirection { get; set; } = EntityDirection.Right;
+    private EntityState _entityState { get; set; } = EntityState.Right;
     private float _rotationAngle = 0f;
-    private EntityDirection _latestFacingDirection { get; set; }
+    private EntityState _latestFacingDirection { get; set; }
 
     public InputSystem(EntityManager entityManager)
     {
@@ -32,29 +32,29 @@ public class InputSystem : IUpdateSystem
         if (_currentKBS.IsKeyDown(Keys.Up))
         {
             GridDirection = new Vector2(0, -1);
-            _entityDirection = EntityDirection.Up;
+            _entityState = EntityState.Up;
 
         }
         else if (_currentKBS.IsKeyDown(Keys.Down))
         {
             GridDirection = new Vector2(0, 1);
-            _entityDirection = EntityDirection.Down;
+            _entityState = EntityState.Down;
         }
         else if (_currentKBS.IsKeyDown(Keys.Right))
         {
             GridDirection = new Vector2(1, 0);
-            _entityDirection = EntityDirection.Right;
+            _entityState = EntityState.Right;
         }
         else if (_currentKBS.IsKeyDown(Keys.Left))
         {
             GridDirection = new Vector2(-1, 0);
-            _entityDirection = EntityDirection.Left;
+            _entityState = EntityState.Left;
 
         }
 
         if (GridDirection != Vector2.Zero)
         {
-            _latestFacingDirection = _entityDirection;
+            _latestFacingDirection = _entityState;
             foreach (var entityID in _entityManager.GetEntityWithComponent<PlayerTag>())
             {
                 var sprite = _entityManager.GetComponent<RenderComponent>(entityID);
@@ -72,16 +72,16 @@ public class InputSystem : IUpdateSystem
                 }
                 switch (_latestFacingDirection)
                 {
-                    case EntityDirection.Right:
+                    case EntityState.Right:
                         transform.Rotation = 0f; // 0 grader 
                         break;
-                    case EntityDirection.Down:
+                    case EntityState.Down:
                         transform.Rotation = MathHelper.PiOver2; // grader
                         break;
-                    case EntityDirection.Left:
+                    case EntityState.Left:
                         transform.Rotation = MathHelper.Pi;// 180 grader 
                         break;
-                    case EntityDirection.Up:
+                    case EntityState.Up:
                         transform.Rotation = MathHelper.PiOver2 * 3; // 270 grader 
                         break;
                 }

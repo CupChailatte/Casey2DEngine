@@ -1,9 +1,10 @@
 
-namespace Pacman.Enums; 
-public enum EntityDirection
+namespace Pacman.Enums;
+
+public enum EntityState
 {
-    Up, 
-    Down, 
-    Left, 
+    Up,
+    Down,
+    Left,
     Right
 }

@@ -1,6 +1,6 @@
 namespace PacmanV2.Enums;
 
-public enum EntityDirection
+public enum EntityState
 {
     Right,
     Left,

@@ -13,8 +13,8 @@ public class GridMovementComponent : IComponent
     public float Speed;
 
 
-    public EntityDirection entityDirection;
-    public EntityDirection latestDirection { get; set; } = EntityDirection.Right;
+    public EntityState entityState;
+    public EntityState latestDirection { get; set; } = EntityState.Right;
 
     public GridMovementComponent(float speed)
     {
