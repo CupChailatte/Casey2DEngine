@@ -29,6 +29,7 @@ public class CollisionSystem : IUpdateSystem
     }
 
     public static event EventHandler<OnPelletsEatenEventArgs> OnPelletEaten;
+    public static event EventHandler<OnEntityCollisionEventArgs> OnEntityCollision; 
     // public static event EventHandler<OnCollisionEventArgs> OnCollision;
 
     // --- COLLISION BETWEEN ENTITIES BY COLLISION CHECKS --- 
@@ -62,7 +63,7 @@ public class CollisionSystem : IUpdateSystem
 
                 if (HitboxA.Intersects(HitboxB))
                 {
-                    Console.WriteLine("JackPot!!");
+                   OnEntityCollision?.Invoke(this, new OnEntityCollisionEventArgs()); 
                 }
             }
         }

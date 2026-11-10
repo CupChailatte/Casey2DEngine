@@ -1,6 +1,6 @@
 {
   "pacman": {
-    "maxHP": 3,
+    "maxHP": 100,
     "speed": 400.0,
     "scale": { "x": 2.0, "y": 2.0 },
     "color": "#FFFF00"

@@ -23,6 +23,7 @@ public class Game1 : Game
     private InputSystem _inputSystem;
     private CollisionSystem _collisionSystem;
     private ScoreSystem _scoreSystem;
+    private HealthSystem _healthSystem; 
     private UISystem _UISystem;
     private AnimationSystem _animationSystem; 
     private GameStateSystem _gameStateSystem;
@@ -46,8 +47,9 @@ public class Game1 : Game
         _movementSystem = new GridMovementSystem(_entityManager);
         _renderSystem = new RenderSystem(_entityManager);
         _inputSystem = new InputSystem(_entityManager);
+        _healthSystem = new HealthSystem(_entityManager); 
         _scoreSystem = new ScoreSystem();
-        _UISystem = new UISystem(_scoreSystem);
+        _UISystem = new UISystem(_scoreSystem,_healthSystem, _entityManager);
         _animationSystem = new AnimationSystem(_entityManager); 
 
 
