@@ -24,6 +24,7 @@ public class Game1 : Game
     private CollisionSystem _collisionSystem;
     private ScoreSystem _scoreSystem;
     private UISystem _UISystem;
+    private AnimationSystem _animationSystem; 
     private GameStateSystem _gameStateSystem;
     public const int TopUIPadding = 80;
 
@@ -47,6 +48,7 @@ public class Game1 : Game
         _inputSystem = new InputSystem(_entityManager);
         _scoreSystem = new ScoreSystem();
         _UISystem = new UISystem(_scoreSystem);
+        _animationSystem = new AnimationSystem(_entityManager); 
 
 
         base.Initialize();
@@ -77,6 +79,7 @@ public class Game1 : Game
         _collisionSystem.Update(gameTime);
         _scoreSystem.Update(gameTime);
         _gameStateSystem.StateChanger();
+        _animationSystem.Update(gameTime); 
 
         base.Update(gameTime);
     }

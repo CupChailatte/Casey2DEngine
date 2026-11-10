@@ -7,6 +7,7 @@ namespace PacmanV2.GameAssets;
 public static class TextureAssets
 {
     public static Texture2D pacman { get; set; }
+    public static Texture2D spriteSheet {get;set;}
     public static Texture2D wall { get; set; }
     public static Texture2D floor { get; set; }
     public static Texture2D placeholder { get; set; }
@@ -19,6 +20,7 @@ public static class TextureAssets
     {
         Console.WriteLine("Textures Loaded");
         pacman = content.Load<Texture2D>("pacman_spriteSmoll2");
+        spriteSheet = content.Load<Texture2D>("SpriteSheet"); 
         wall = content.Load<Texture2D>("walltile");
         floor = content.Load<Texture2D>("floortile");
         placeholder = content.Load<Texture2D>("spritePlaceholder");

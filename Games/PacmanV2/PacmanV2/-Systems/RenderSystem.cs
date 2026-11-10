@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PacmanV2.Components;
@@ -31,12 +32,20 @@ public class RenderSystem : IRenderSystem
             _entityManager.HasComponent<RenderComponent>(entityID) ||
             _entityManager.HasComponent<TransformComponent>(entityID);
 
-            Vector2 renderPosition = new Vector2(
+            Vector2 renderCenterPosition = new Vector2(
                 transform.PixelPosition.X + (WorldTile.TileSize / 2f),
                 transform.PixelPosition.Y + (WorldTile.TileSize / 2f));
 
+            Vector2 DrawPosition = new Vector2(MathF.Round(renderCenterPosition.X), MathF.Round(renderCenterPosition.Y)); 
+
             // Håller pacmans sprite origin fäst vid dens interna pixel center 
-            Vector2 renderOrigin = new Vector2(render.SpriteTexture.Width / 2f, render.SpriteTexture.Height / 2f);
+            Vector2 renderOrigin = render.Origin; 
+            if (renderOrigin == Vector2.Zero)
+            {
+               float frameWidth = render.SourceRectangle.HasValue ? render.SourceRectangle.Value.Width : render.SpriteTexture.Width;
+                float frameHeight = render.SourceRectangle.HasValue ? render.SourceRectangle.Value.Height : render.SpriteTexture.Height;
+                renderOrigin = new Vector2(frameWidth / 2f, frameHeight / 2f); 
+            }
 
             // null check av componenterna
             if (render == null || transform == null) continue;
@@ -44,7 +53,7 @@ public class RenderSystem : IRenderSystem
             // rita? 
             spriteBatch.Draw(
                 texture: render.SpriteTexture,
-                position: renderPosition, // visuel center position 
+                position: DrawPosition, // visuel center position 
                 color: render.Color,
                 sourceRectangle: render.SourceRectangle,
                 effects: render.Effects,
