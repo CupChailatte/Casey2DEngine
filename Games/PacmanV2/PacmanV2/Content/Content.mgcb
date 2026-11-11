@@ -26,6 +26,14 @@
 /processorParam:Version=3.8.6.0
 /build:floortile.png
 
+#begin gameOverFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/processorParam:Version=3.8.6.0
+/build:gameOverFont.spritefont
+
 #begin pacman_sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor

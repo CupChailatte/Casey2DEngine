@@ -16,17 +16,17 @@ public class HealthSystem : IUpdateSystem
         _entityManager = entityManager;
     }
 
-   
+
     public int GetPlayerHealth()
     {
         foreach (int entityID in _entityManager.GetEntityWithComponent<PlayerTag>())
         {
-             var hp = _entityManager.GetComponent<HPComponent>(entityID); 
-             return hp.CurrentHP; 
-                
-            
+            var hp = _entityManager.GetComponent<HPComponent>(entityID);
+            return hp.CurrentHP;
+
+
         }
-        return 0; 
+        return 0;
     }
 
 
@@ -38,7 +38,7 @@ public class HealthSystem : IUpdateSystem
             health.CurrentHP -= e.DamageValue;
             if (health.CurrentHP <= 0)
             {
-                health.CurrentHP = 0; 
+                health.CurrentHP = 0;
             }
         }
     }
