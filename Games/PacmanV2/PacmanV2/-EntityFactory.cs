@@ -71,13 +71,14 @@ public class EntityFactory
                     LayerDepth = 0.7f
 
                 };
-
+                var tag = new GhostTag(); 
                 var pinkyAnimation = new AnimationClip(new Rectangle[]
                 {
                     new Rectangle(0,32,16,16),
                     new Rectangle(16,32,16,16),
                 });
                 var pinkyAnima = new AnimationComponent(pinkyAnimation);
+                _entityManager.AddComponent(entityID, tag); 
                 _entityManager.AddComponent(entityID, pinkySprite);
                 _entityManager.AddComponent(entityID, pinkyAnima);
                 pinkySprite.SourceRectangle = pinkyAnimation.Frames[0]; 

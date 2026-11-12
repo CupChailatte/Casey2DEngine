@@ -21,6 +21,7 @@ public class UISystem : IRenderSystem
     private SpriteFont _textBoxFont;
     private Rectangle _textBox = new Rectangle(0, 0, 900, 1000);
     private string _text = "GAME OVER";
+    private string _winText = "YOU WIN"; 
     private Vector2 _textPosition;
 
     public UISystem(ScoreSystem scoreSystem, HealthSystem healthSystem, EntityManager entityManager)
@@ -55,6 +56,10 @@ public class UISystem : IRenderSystem
         {
             spriteBatch.Draw(_textBoxTexture, _textBox, Color.Red);
             spriteBatch.DrawString(_textBoxFont, _text, _textPosition, Color.Black);
+        } else if (_scoreSystem.TotalScore >= 2910)
+        {
+            spriteBatch.Draw(_textBoxTexture, _textBox, Color.Yellow);
+            spriteBatch.DrawString(_textBoxFont, _winText, _textPosition, Color.Black);
         }
     }
 }

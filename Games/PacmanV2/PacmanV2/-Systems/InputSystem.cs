@@ -26,7 +26,7 @@ public class InputSystem : IUpdateSystem
 
     public void Update(GameTime gameTime)
     {
-
+        
         _currentKBS = Keyboard.GetState();
         Vector2 GridDirection = Vector2.Zero;
         if (_currentKBS.IsKeyDown(Keys.Up))
@@ -61,6 +61,38 @@ public class InputSystem : IUpdateSystem
                 var movement = _entityManager.GetComponent<GridMovementComponent>(entityID);
                 var transform = _entityManager.GetComponent<TransformComponent>(entityID);
 
+                if (sprite != null)
+                {
+                    sprite.Effects = SpriteEffects.None;
+                }
+
+                if (movement != null)
+                {
+                    movement.Direction = GridDirection;
+                }
+                switch (_latestFacingDirection)
+                {
+                    case EntityState.Right:
+                        transform.Rotation = 0f; // 0 grader 
+                        break;
+                    case EntityState.Down:
+                        transform.Rotation = MathHelper.PiOver2; // grader
+                        break;
+                    case EntityState.Left:
+                        transform.Rotation = MathHelper.Pi;// 180 grader 
+                        break;
+                    case EntityState.Up:
+                        transform.Rotation = MathHelper.PiOver2 * 3; // 270 grader 
+                        break;
+                }
+            }
+
+            foreach (var ghost in _entityManager.GetEntityWithComponent<GhostTag>())
+            {
+                _latestFacingDirection = _entityState;
+                var sprite = _entityManager.GetComponent<RenderComponent>(ghost);
+                var movement = _entityManager.GetComponent<GridMovementComponent>(ghost);
+                var transform = _entityManager.GetComponent<TransformComponent>(ghost);
                 if (sprite != null)
                 {
                     sprite.Effects = SpriteEffects.None;

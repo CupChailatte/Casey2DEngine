@@ -5,5 +5,5 @@ public enum EntityState
     Right,
     Left,
     Up,
-    Down
+    Down, Idle, 
 }
